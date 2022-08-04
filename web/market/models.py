@@ -80,6 +80,24 @@ class Item(db.Model):
     description = db.Column(db.String(length=1000), nullable=False)
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
+    def __init__(self, name, price, barcode, description):
+        self.name = name
+        self.price = price
+        self.barcode = barcode
+        self.description = description
+
+    def buy(self, user):
+        self.user_id = user.id
+        user.budget -= self.price
+        user.cart += 1
+        db.session.commit()
+
+    def sell(self, user):
+        self.user_id = None
+        user.budget += self.price
+        user.cart -= 1
+        db.session.commit()
+
 class Note(db.Model):
     __tablename__ = 'notes'
 

@@ -106,6 +106,11 @@ class Note(db.Model):
     notation = db.Column(db.Text(), nullable=False)
     notation_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
+    def __init__(self, title, notation, notation_id):
+        self.title = title
+        self.notation = notation
+        self.notation_id = notation_id
+
 class Post(db.Model):
     __tablename__ = 'posts'
 
@@ -115,6 +120,11 @@ class Post(db.Model):
     author_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     reviews = db.relationship('Review', backref="posts", lazy=True)
 
+    def __init__(self,title,post, author_id):
+        self.title = title
+        self.post = post
+        self.author_id = author_id
+
 class Review(db.Model):
     __tablename__ = 'reviews'
 
@@ -122,6 +132,11 @@ class Review(db.Model):
     review = db.Column(db.Text(), nullable=False)
     reviewer_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer(), db.ForeignKey('posts.id'))
+
+    def __init__(self,review,reviewer_id,post_id):
+        self.review = review
+        self.reviewer_id = reviewer_id
+        self.post_id = post_id
 
 
 

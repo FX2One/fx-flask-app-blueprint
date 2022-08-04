@@ -20,6 +20,16 @@ class User(UserMixin, db.Model):
     reviews = db.relationship('Review', backref="users",lazy=True)
     cart = db.Column(db.Integer(),nullable=False, default=0)
 
+    @property
+    def budget_amount(self):
+        return f"{str(self.budget)[:-3]},{str(self.budget)[-3:]}$"
+
+    def can_purchase(self, item_obj):
+        return self.budget >= item_obj.price
+
+    def can_sell(self, item_obj):
+        return item_obj in self.items
+
 class Item(db.Model):
     __tablename__ = 'items'
 

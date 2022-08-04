@@ -36,10 +36,35 @@ class User(UserMixin, db.Model):
 
     @password.setter
     def password(self, plain_password):
+        """password_hash is a String column which requires
+        hashed password to be string not bytes in PostgreSQL"""
         self.password_hash = flask_bcrypt.generate_password_hash(plain_password).decode('utf-8')
 
     def check_password(self, plain_password):
         return flask_bcrypt.check_password_hash(self.password_hash, plain_password)
+
+    def generate_auth_token(self,expiration=36000):
+        token = jwt.encode(
+            {
+                "confirm": self.id,
+                "exp":datetime.now(timezone.utc) + timedelta(seconds=expiration)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256"
+        )
+        return token
+
+    def confirm(self, token):
+        try:
+            data = jwt.decode(token,current_app.config['SECRET_KEY'],algorithms=["HS256"])
+        except:
+            return False
+
+        if data.get('confirm') != self.id:
+            return False
+        self.email_confirmed = True
+        db.session.add(self)
+        return True
 
 class Item(db.Model):
     __tablename__ = 'items'

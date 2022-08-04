@@ -35,3 +35,16 @@ def register_page():
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register.html', form=form)
+
+@account_bp.route('/login', methods=['GET', 'POST'])
+def login_page():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(plain_password=form.password.data):
+            login_user(user)
+            flash('you are successfully logged in', category='success')
+            return redirect(url_for('account.home_page'))
+        else:
+            flash('user or password do not match', category='danger')
+    return render_template('login.html', form=form)

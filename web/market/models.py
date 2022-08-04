@@ -30,6 +30,17 @@ class User(UserMixin, db.Model):
     def can_sell(self, item_obj):
         return item_obj in self.items
 
+    @property
+    def password(self):
+        raise AttributeError('password is not readable attribute')
+
+    @password.setter
+    def password(self, plain_password):
+        self.password_hash = flask_bcrypt.generate_password_hash(plain_password).decode('utf-8')
+
+    def check_password(self, plain_password):
+        return flask_bcrypt.check_password_hash(self.password_hash, plain_password)
+
 class Item(db.Model):
     __tablename__ = 'items'
 

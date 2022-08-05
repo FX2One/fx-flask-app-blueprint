@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %} Owned Items {% endblock %}
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <h2>Owned Items</h2>
+        <br>
+        <table class="table table-borderless table-hover table-owned">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Barcode</th>
+                <th scope="col">Description</th>
+                <th scope="col">Options</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for item in items %}
+            {% include 'includes/sell_md.html' %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price}}$</td>
+                <td>{{ item.barcode }}</td>
+                <td>{{ item.description }}</td>
+                <td>
+                    <button class="btn btn-outline-danger btn-modal" data-toggle="modal" data-target="#Modal-SellConfirm-{{ item.id }}"><span>Sell</span></button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+
+.btn-modal {
+    width: 100px;
+    height: 40px;
+    }
+.row {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.table-owned {
+  background-color: #212121;
+  justify-content: center;
+  color: #fff;
+}
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #373737;
+    color: #fff;
+}
+</style>
+{% endblock %}
+

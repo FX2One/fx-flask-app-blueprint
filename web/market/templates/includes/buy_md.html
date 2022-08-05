@@ -5,7 +5,7 @@
 </style>
 
 <!-- Item Info Modal -->
-<div class="modal fade" id="Modal-MoreInfo-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--we give unique ID for each modal -->
+<div class="modal fade" id="Modal-MoreInfo-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +28,7 @@
 </div>
 
 <!-- Buy Modal -->
-<div class="modal fade" id="Modal-BuyConfirm-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--we give unique ID for each modal -->
+<div class="modal fade" id="Modal-BuyConfirm-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -41,11 +41,11 @@
             </div>
             <div class="modal-body">
                 <form method="POST">
-                    {{ purchase_form.hidden_tag() }} <!--secure hidden tag -->
+                    {{ purchase_form.hidden_tag() }}
                     <br>
                     <h4>are you sure you want to add {{ item.name }} to basket for {{ item.price }}$ ?</h4>
                     <br>
-                    <input id="purchased_item" name="purchased_item" type="hidden" value="{{item.name}}"> <!-- żeby wiedzieć jaki item chce kupić nasz user -->
+                    <input id="purchased_item" name="purchased_item" type="hidden" value="{{item.name}}">
                     {{ purchase_form.submit(class='btn btn-outline-success btn-block') }}
                 </form>
             </div>

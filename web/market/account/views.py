@@ -7,10 +7,12 @@ from ..email import send_email
 
 account_bp = Blueprint('account', __name__, template_folder='templates')
 
+
 @account_bp.route('/')
 @account_bp.route('/home')
 def home_page():
     return render_template('home.html')
+
 
 @account_bp.route('/register', methods=['GET', 'POST'])
 def register_page():
@@ -36,6 +38,7 @@ def register_page():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register.html', form=form)
 
+
 @account_bp.route('/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()
@@ -48,3 +51,11 @@ def login_page():
         else:
             flash('user or password do not match', category='danger')
     return render_template('login.html', form=form)
+
+
+@account_bp.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout_page():
+    logout_user()
+    flash('you have been logged out', category='info')
+    return redirect(url_for('account.home_page'))

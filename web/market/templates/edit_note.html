@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit Page
+{% endblock %}
+
+{% block content %}
+
+<body class="text-center">
+<div class="container">
+  <form method="POST" class="form-register" style="color:white">
+    {{ form.hidden_tag() }}
+    <img class="mb-4" src="" alt="">
+    <h1 class="h3 mb-3 font-weight-normal">
+      Edit Note
+    </h1>
+
+    <br>
+    {{ form.title.label() }}
+    {{ form.title(class="form-control form-title", placeholder="Title") }}
+
+    <div class="post">
+      {{ form.notation.label() }}
+      {{ form.notation(class="form-control form-note", placeholder="Place your comment here") }}
+
+      <br>
+      {{ form.submit(class="btn btn-outline-primary btn-custom") }}
+    </div>
+  </form>
+</div>
+</body>
+
+<style>
+.btn-custom {
+    width: 25%;
+}
+
+.form-title {
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-register {
+    color: white;
+}
+
+.form-title:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.form-note {
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+    height: 40em;
+}
+
+.note {
+    height: 40em;
+}
+
+.form-note:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 75%;
+    scrollbar-width: none;
+}
+</style>
+{% endblock %}

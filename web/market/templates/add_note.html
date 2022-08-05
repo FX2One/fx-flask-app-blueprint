@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}
+Create Note
+{% endblock %}
+
+{% block content %}
+<body class="text-center">
+<div class="container">
+  <form method="POST" class="form-register">
+    {{ form.hidden_tag() }}
+    <img class="mb-4" src="" alt="">
+    <h1 class="h3 mb-3 font-weight-normal">Add Note</h1>
+
+    <br>
+    {{ form.title.label() }}
+    {{ form.title(class="form-control", placeholder="Title") }}
+
+    {{ form.notation.label() }}
+    {{ form.notation(class="form-control", placeholder="Add your note") }}
+
+    <br>
+    {{ form.submit(class="btn btn-outline-primary btn-custom") }}
+
+  </form>
+</div>
+</body>
+<style>
+
+.container {
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-custom {
+    width: 25%;
+}
+
+.form-register {
+    color: white;
+}
+
+.form-control {
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-control:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow:hidden;
+}
+</style>
+{% endblock %}

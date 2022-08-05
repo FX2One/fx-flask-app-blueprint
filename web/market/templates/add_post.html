@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Post
+{% endblock %}
+
+{% block content %}
+<body class="text-center">
+    <div class="container">
+        <form method="POST" class="form-register">
+            {{ form.hidden_tag() }}
+
+            <h1 class="h3 mb-3 font-weight-normal">Add Post</h1>
+            <br>
+
+            {{ form.title.label() }}
+            {{ form.title(class="form-control form-title", placeholder="Title") }}
+
+            <div class="post">
+            {{ form.post.label() }}
+            {{ form.post(class="form-control form-post", placeholder="Place your post here") }}
+
+            <br>
+            {{ form.submit(class="btn btn-outline-primary btn-custom") }}
+            </div>
+        </form>
+    </div>
+</body>
+
+<style>
+
+.btn-custom {
+    width: 25%;
+}
+
+.form-title {
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-title:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+.form-post {
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+    height: 40em;
+}
+
+.post {
+    height: 40em;
+}
+
+.form-post:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 75%;
+    scrollbar-width: none;
+}
+</style>
+{% endblock %}

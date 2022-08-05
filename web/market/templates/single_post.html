@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block title %}
+Single Post
+{% endblock %}
+
+{% block content %}
+<body class="text-center">
+<div class="container">
+  <div class="post-contents">
+
+      <div class="post-inner">
+        {% for user in users %}
+            {% if single_post.author_id == user.id: %}
+              <h2>{{single_post.title}}</h2>
+              <h4>{{single_post.post}}</h4>
+              <i class="added">posted by: {{user.username}}</i>
+              <br>
+            {% endif %}
+        {% endfor %}
+
+        {% for post in posts %}
+        {% include 'includes/del_post_md.html' %}
+          {% if post.id == single_post.id: %}
+            {% if post.author_id == current_user.id: %}
+                <br>
+                <button class="btn btn-outline-info"><a class="btn-href" href="{{url_for('posts.edit_post', post_id=post.id) }}">Edit</a></button>
+                <button class="btn btn-outline-danger btn-modal" data-toggle="modal" data-target="#Modal-DelConfirm-{{ post.id }}">Delete</button>
+            {% endif %}
+      </div>
+
+      <br>
+      <br>
+      <div class="review-button">
+          <button class="btn btn-outline-success"><a href="{{url_for('posts_review.add_review', post_id=post.id) }}">Add Review</a></button>
+          <button class="btn btn-outline-warning"><a href="{{url_for('posts_review.review', post_id=post.id) }}">All Reviews</a></button>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+  <br>
+
+</div>
+</body>
+
+<style>
+.container {
+    width: 75%;
+    height: 75%;
+}
+
+.post-contents {
+    padding: 50px;
+}
+
+.post-inner {
+    background-color: #363636;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.added {
+    float:right;
+    text-align: right;
+}
+
+h2 {
+    background-color: inherit;
+    border: transparent;
+    border-radius: 10px;
+    color: white;
+    word-wrap: break-word;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h3 {
+    background-color: white;
+    border: 5px solid red;
+    color: black;
+}
+
+h5 {
+    text-align: left;
+}
+
+h6 {
+    text-align: right;
+}
+
+.review-contents {
+    background-color: green;
+    padding: 20px;
+}
+
+.btn {
+    width: 7rem;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+    color: inherit;
+}
+</style>
+{% endblock %}

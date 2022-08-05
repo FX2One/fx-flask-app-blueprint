@@ -64,6 +64,7 @@ class User(UserMixin, db.Model):
             return False
         self.email_confirmed = True
         db.session.add(self)
+        db.session.commit()
         return True
 
 @login_manager.user_loader

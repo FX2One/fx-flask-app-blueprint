@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request, Blueprint
+from flask import render_template, redirect, url_for, flash, Blueprint
 from market.account.forms import RegisterForm, LoginForm
 from flask_login import current_user, login_user, logout_user, login_required
 from market.models import User, Item

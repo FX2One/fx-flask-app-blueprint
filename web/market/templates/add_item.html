@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}
+Add Item Page
+{% endblock %}
+
+{% block content %}
+<body class="text-center">
+    <div class="container">
+        <form method="POST" class="form-register">
+            {{ form.hidden_tag() }}
+            <img class="mb-4" src="" alt="">
+            <h1 class="h3 mb-3 font-weight-normal">
+                Add New Item
+            </h1>
+            <br>
+            {{ form.name.label() }}
+            {{ form.name(class="form-control", placeholder="Item Name") }}
+
+            {{ form.price.label() }}
+            {{ form.price(class="form-control", placeholder="Price (max=9999)") }}
+
+            {{ form.barcode.label() }}
+            {{ form.barcode(class="form-control", placeholder="Barcode (max=10digits)") }}
+
+            {{ form.description.label() }}
+            {{ form.description(class="form-control", placeholder="Item Description") }}
+
+            <br>
+            {{ form.submit(class="btn btn-outline-primary btn-custom") }}
+
+        </form>
+    </div>
+</body>
+<style>
+
+.container {
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-custom {
+    width: 25%;
+}
+
+
+.form-control {
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-control:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow:hidden;
+}
+</style>
+{% endblock %}

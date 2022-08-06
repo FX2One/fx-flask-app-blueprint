@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit Page
+{% endblock %}
+
+{% block content %}
+
+<body class="text-center">
+<div class="container">
+    <form method="POST" style="color:white">
+        {{ form.hidden_tag() }}
+
+        <img class="mb-4" src="" alt="">
+        <h1 class="h3 mb-3 font-weight-normal">
+            Edit Review
+        </h1>
+        <br>
+        <div class="rev-form">
+        {{ form.review.label() }}
+        {{ form.review(class="form-control form-review", placeholder="Place your comment here") }}
+        <br>
+        {{ form.submit(class="btn btn-custom btn-outline-primary") }}
+        </div>
+
+    </form>
+</div>
+</body>
+
+<style>
+.container {
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-custom {
+    width: 25%;
+}
+
+.rev-form {
+    height: 40em;
+}
+
+.form-review{
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+    height: 40em;
+}
+
+.form-review:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 75%;
+    scrollbar-width: none;
+}
+
+
+.form-control {
+    border: 0;
+    resize: none;
+    overflow:hidden;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.form-control:focus{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    overflow:hidden;
+}
+</style>
+{% endblock %}

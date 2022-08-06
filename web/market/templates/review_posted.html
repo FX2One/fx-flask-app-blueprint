@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit Page
+{% endblock %}
+
+{% block content %}
+<body class="text-center">
+<div class="container">
+  <br>
+  <div class="post-content">
+      <div class="post-inner">
+          <h2>{{single_post.title}}</h2>
+          <h4>{{single_post.post}}</h4>
+        {% for user in users %}
+            {% if single_post.author_id == user.id: %}
+          <i class="added">posted by: {{user.username}}</i>
+              <br>
+              <br>
+            {% endif %}
+        {% endfor %}
+        {% for post in posts %}
+        {% include 'includes/del_post_md.html' %}
+          {% if post.id == single_post.id: %}
+          <button class="btn btn-outline-success btn-modal"><a href="{{url_for('posts_review.add_review', post_id=post.id) }}">Add Review</a></button>
+            {% if single_post.author_id == current_user.id: %}
+                <button class="btn btn-outline-info"><a class="btn-href" href="{{url_for('posts.edit_post', post_id=post.id) }}">Edit</a></button>
+                <button class="btn btn-outline-danger btn-modal" data-toggle="modal" data-target="#Modal-DelConfirm-{{ post.id }}">Delete</button>
+            {% endif %}
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <br>
+  <div class="review-content">
+    {% for review in reviews %}
+    {% include 'includes/del_review_md.html' %}
+        {% if review.post_id == single_post.id %}
+            <div class="review-inner">
+                <span class="review-text">{{ review.review}}</span>
+
+                <br>
+                {% for user in users %}
+                    {% if review.reviewer_id == user.id %}
+                    <i class="added">reviewed by: {{ user.username }}</i>
+                        <br>
+                        <br>
+                    {% endif %}
+                {% endfor %}
+
+                {% if review.reviewer_id == current_user.id %}
+                <div class="review-button">
+                    <button class="btn btn-outline-danger btn-modal" data-toggle="modal" data-target="#Modal-DelRevConfirm-{{ review.id }}">Delete Review</button>
+                    <button class="btn btn-outline-info btn-modal"><a href="{{url_for('posts_review.edit_review', post_id=review.id)}}">Edit Review</a></button>
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+      {% endfor %}
+  </div>
+</div>
+</body>
+
+<style>
+.container {
+    width: 75%;
+    height: 75%;
+}
+
+.review-text {
+    overflow-wrap: break-word;
+}
+
+.post-content {
+    padding: 50px;
+    overflow-wrap: break-word;
+}
+
+.post-inner {
+    background-color: #363636;
+    padding: 20px;
+    border-radius: 5px;
+    overflow-wrap: break-word;
+}
+
+.review-content {
+    padding: 50px;
+    overflow-wrap: break-word;
+}
+
+.review-inner {
+    background-color: #363636;
+    padding: 20px;
+    border-radius: 5px;
+    overflow-wrap: break-word;
+}
+
+.added {
+    float:right;
+    text-align: right;
+}
+
+h2 {
+    background-color: inherit;
+    border: transparent;
+    border-radius: 10px;
+    color: white;
+    word-wrap: break-word;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h3 {
+    background-color: white;
+    border: 5px solid red;
+    color: black;
+}
+
+h5 {
+    text-align: left;
+}
+
+h6 {
+    text-align: right;
+}
+
+.review-contents {
+    background-color: green;
+    padding: 20px;
+}
+
+.btn {
+    width: 8rem;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+    color: inherit;
+}
+</style>
+{% endblock %}

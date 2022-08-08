@@ -39,6 +39,22 @@ def register_page():
     return render_template('register.html', form=form)
 
 
+@account_bp.route('/email/confirm/<token>', methods=['GET', 'POST'])
+def confirm(token):
+    if current_user.is_authenticated:
+        """Confirm new user's account with provided token."""
+        if current_user.email_confirmed:
+            return redirect(url_for('items.market_page'))
+        if current_user.confirm(token):
+            flash('Your account has been confirmed.', category='success')
+        else:
+            flash('The confirmation link is invalid or has expired.', category='danger')
+        return redirect(url_for('items.market_page'))
+    else:
+        flash('Please login first to activate your account', category='danger')
+        return redirect(url_for('account.login_page'))
+
+
 @account_bp.route('/login', methods=['GET', 'POST'])
 def login_page():
     form = LoginForm()

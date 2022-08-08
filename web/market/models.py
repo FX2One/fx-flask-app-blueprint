@@ -103,7 +103,7 @@ class Note(db.Model):
     __tablename__ = 'notes'
 
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(length=60), nullable=False, unique=True)
+    title = db.Column(db.String(length=60), nullable=False)
     notation = db.Column(db.Text(), nullable=False)
     notation_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
 
@@ -116,7 +116,7 @@ class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.String(length=60), nullable=False, unique=True)
+    title = db.Column(db.String(length=60), nullable=False)
     post = db.Column(db.Text(), nullable=False)
     author_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     reviews = db.relationship('Review', backref="posts", lazy=True)

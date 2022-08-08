@@ -46,6 +46,9 @@ def all_owned_posts():
     return render_template('all_owned_posts.html', posts=all_user_posts, users=all_users)
 
 
+# test_edit_post_form mocking against static user.id
+# .env LOGIN_DISABLED=TRUE
+# current_user.id exchanged to 1 for test purposes
 @post_bp.route('/post/edit/<int:post_id>', methods=['GET','POST'])
 @login_required
 def edit_post(post_id):

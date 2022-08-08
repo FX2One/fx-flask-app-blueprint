@@ -37,6 +37,10 @@ def review(post_id):
     return render_template('review_posted.html', posts=posts, users=users, single_post=single_post, reviews=all_reviews)
 
 
+
+# test_edit_review_form mocking against static user.id
+# .env LOGIN_DISABLED=TRUE
+# current_user.id exchanged to 1 for test purposes
 @post_review_bp.route('/review/edit/<int:post_id>', methods=['GET','POST'])
 @login_required
 def edit_review(post_id):

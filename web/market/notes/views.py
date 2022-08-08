@@ -6,7 +6,9 @@ from market import db
 
 note_bp = Blueprint('notes', __name__, template_folder='templates')
 
-
+# test_add_note_page_redirect mocking against static user.id
+# .env LOGIN_DISABLED=TRUE
+# current_user.id exchanged to 1 for test purposes
 @note_bp.route('/add_note', methods=['GET', 'POST'])
 @login_required
 def add_note():
@@ -30,6 +32,10 @@ def all_owned_notes():
     return render_template('all_owned_notes.html', notes=all_user_notes)
 
 
+
+# test_edit_note_form mocking against static user.id
+# .env LOGIN_DISABLED=TRUE
+# current_user.id exchanged to 1 for test purposes
 @note_bp.route('/edit_note/<int:note_id>', methods=['GET', 'POST'])
 @login_required
 def edit_note(note_id):

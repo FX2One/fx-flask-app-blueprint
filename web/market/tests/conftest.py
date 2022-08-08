@@ -9,6 +9,7 @@ from market import create_app
 from market import db as _db
 from market.config import TestingConfig
 
+
 """Session wide-test Flask application"""
 @pytest.fixture(scope='function')
 def app():
@@ -27,6 +28,7 @@ def client(app):
     ap.test_client_class = FlaskClient
     with ap.test_client() as client:
         yield client
+
 
 """Flask test database scope"""
 @pytest.fixture(scope='function')
@@ -88,6 +90,7 @@ def new_user2(session):
     session.commit()
     return user
 
+
 # gather token generator
 @pytest.fixture(scope='function')
 def the_token(new_user):
@@ -103,6 +106,7 @@ def new_item(session):
     session.commit()
     return item
 
+
 # create new_item over 'budget'
 @pytest.fixture(scope='function')
 def new_item_over(session):
@@ -111,11 +115,13 @@ def new_item_over(session):
     session.commit()
     return item
 
+
 # buys new item in 'budget'
 @pytest.fixture(scope='function')
 def buy_item_in_budget(session,new_user,new_item):
     new_item.buy(new_user)
     return new_item
+
 
 #buys item which is over the 'budget'
 @pytest.fixture(scope='function')
@@ -123,12 +129,14 @@ def buy_item_over_budget(session,new_user,new_item_over):
     new_item_over.buy(new_user)
     return new_item_over
 
+
 # takes fixture of already bought item
 # returns item back to market
 @pytest.fixture(scope='function')
 def new_item_sold(session,buy_item_in_budget,new_user):
     buy_item_in_budget.sell(new_user)
     return buy_item_in_budget
+
 
 # check new post addition
 @pytest.fixture(scope='function')
@@ -138,6 +146,7 @@ def new_post(session,new_user):
     session.commit()
     return post
 
+
 # check new note addition
 @pytest.fixture(scope='function')
 def new_note(session,new_user):
@@ -145,6 +154,7 @@ def new_note(session,new_user):
     session.add(note)
     session.commit()
     return note
+
 
 # user1 ,post1 = review1
 # check new review added to post1 by user1
@@ -155,6 +165,7 @@ def new_review(session,new_post,new_user):
     session.commit()
     return review
 
+
 # user1, post1 = review2
 # check another review being added to the post1 by user1
 @pytest.fixture(scope='function')
@@ -163,6 +174,7 @@ def new_review2(session,new_post,new_user):
     session.add(review)
     session.commit()
     return review
+
 
 # user2 ,post1 = review3
 # check user2 adding 3rd review to post1
@@ -173,6 +185,7 @@ def new_review_all(session,new_post,new_user2):
     session.commit()
     return review
 
+
 # check login and logout
 @pytest.fixture(scope='function')
 def login_default_user(client):
@@ -181,7 +194,6 @@ def login_default_user(client):
                      follow_redirects=True)
 
     yield
-
     client.get('/logout', follow_redirects=True)
 
 

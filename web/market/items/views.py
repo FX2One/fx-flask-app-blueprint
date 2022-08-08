@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request, Blueprint
-from market.items.forms import ItemsForm, EditItemsForm, PurchaseItemForm, SellItemForm
+from market.items.forms import ItemsForm, PurchaseItemForm, SellItemForm
 from flask_login import current_user, login_required
 from market.models import User, Item, Post, Review
 from market import db

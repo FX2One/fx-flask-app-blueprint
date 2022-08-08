@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:14
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - flask_network
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+      # do not put this method unless you want anyone to access your db knowing host
+      # POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./dbscripts/postgres:/docker-entrypoint-initdb.d
+
+  web:
+    build: web
+    restart: always
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    networks:
+      - flask_network
+
+  proxy:
+    build: proxy
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - flask_network
+
+
+
+networks:
+  flask_network:
+
+volumes:
+  postgres_data:

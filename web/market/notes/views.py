@@ -6,6 +6,7 @@ from market import db
 
 note_bp = Blueprint('notes', __name__, template_folder='templates')
 
+
 # test_add_note_page_redirect mocking against static user.id
 # .env LOGIN_DISABLED=TRUE
 # current_user.id exchanged to 1 for test purposes
@@ -32,7 +33,6 @@ def all_owned_notes():
     return render_template('all_owned_notes.html', notes=all_user_notes)
 
 
-
 # test_edit_note_form mocking against static user.id
 # .env LOGIN_DISABLED=TRUE
 # current_user.id exchanged to 1 for test purposes
@@ -53,7 +53,7 @@ def edit_note(note_id):
     return render_template('edit_note.html', form=form)
 
 
-@note_bp.route('/delete_note/<int:note_id>', methods=['GET','POST'])
+@note_bp.route('/delete_note/<int:note_id>', methods=['GET', 'POST'])
 @login_required
 def delete_note(note_id):
     note = Note.query.filter_by(id=note_id).first_or_404()

@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, StringField, SubmitField, TextAreaField
 from wtforms.validators import InputRequired, Length, NumberRange
 
+
 class ItemsForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired(),
                                            Length(1, 64)])
@@ -12,7 +13,8 @@ class ItemsForm(FlaskForm):
     barcode = IntegerField('Barcode', validators=[InputRequired(),
                                                   NumberRange(min=1, max=9999999999)])
 
-    description = StringField('Description', validators=[InputRequired(),Length(1,254)])
+    description = StringField('Description', validators=[
+                              InputRequired(), Length(1, 254)])
 
     submit = SubmitField('Submit')
 

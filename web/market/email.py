@@ -8,7 +8,7 @@ def send_email(recipient, subject, template, **kwargs):
     app = current_app._get_current_object()
     with app.app_context():
         msg = Message(
-            subject = app.config['EMAIL_SUBJECT_PREFIX'] + ' ' + subject,
+            subject=app.config['EMAIL_SUBJECT_PREFIX'] + ' ' + subject,
             sender=app.config['EMAIL_SENDER'],
             recipients=[recipient])
         msg.html = render_template(template + '.html', **kwargs)

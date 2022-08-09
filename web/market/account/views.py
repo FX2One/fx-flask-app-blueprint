@@ -35,7 +35,8 @@ def register_page():
 
     if form.errors != {}:
         for err_msg in form.errors.values():
-            flash(f'There was an error with creating a user: {err_msg}', category='danger')
+            flash(
+                f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register.html', form=form)
 
 
@@ -48,7 +49,8 @@ def confirm(token):
         if current_user.confirm(token):
             flash('Your account has been confirmed.', category='success')
         else:
-            flash('The confirmation link is invalid or has expired.', category='danger')
+            flash('The confirmation link is invalid or has expired.',
+                  category='danger')
         return redirect(url_for('items.market_page'))
     else:
         flash('Please login first to activate your account', category='danger')

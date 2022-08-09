@@ -35,7 +35,8 @@ try:
     app_config = config_dict[config_mode]
 
 except KeyError:
-    exit('Error: Invalid <config_mode>. Expected values [Development,Testing or Production] ')
+    exit(
+        'Error: Invalid <config_mode>. Expected values [Development,Testing or Production] ')
 
 
 # loads decouple config into app object creation
@@ -50,5 +51,3 @@ if DEBUG:
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
-
-

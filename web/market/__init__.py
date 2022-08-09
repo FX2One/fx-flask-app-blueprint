@@ -9,7 +9,7 @@ flask_bcrypt = Bcrypt()
 login_manager = LoginManager()
 mail = Mail()
 
-#setup flask-login
+# setup flask-login
 login_manager.login_view = "account.login_page"
 login_manager.login_message_category = 'info'
 

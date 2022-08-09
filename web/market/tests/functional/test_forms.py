@@ -5,7 +5,7 @@ from market.account.forms import LoginForm, RegisterForm
 from market.models import User, Note, Review, Note, Post
 from market.items.forms import ItemsForm
 from urllib.parse import urlparse
-from flask import url_for,request
+from flask import url_for, request
 
 
 """
@@ -23,12 +23,12 @@ def test_add_item_form(client):
     assert b'Price' in rv.data
     assert b'Barcode' in rv.data
     assert b'Description' in rv.data
-    form = ItemsForm(name='item', price=123, barcode=1234567, description='test')
+    form = ItemsForm(name='item', price=123,
+                     barcode=1234567, description='test')
     response = client.post('/add_item', data=form.data, follow_redirects=False)
     assert response.status_code == 302
     expectedPath = '/market'
     assert urlparse(response.location).path == expectedPath
-
 
 
 def test_add_note_form(client):
@@ -41,7 +41,6 @@ def test_add_note_form(client):
     assert response.status_code == 200
 
 
-
 def test_add_post_form(client):
     form = AddPostForm(title='test2title', post='3testpost')
     response = client.post('/add_post', data=form.data, follow_redirects=False)
@@ -51,13 +50,14 @@ def test_add_post_form(client):
     assert request.path == url_for('posts.add_post')
 
 
-
 def test_add_review_form(client, new_post, new_user, session):
-    reviews = Review(review='reviewtest', reviewer_id=new_user.id, post_id=new_post.id)
+    reviews = Review(review='reviewtest',
+                     reviewer_id=new_user.id, post_id=new_post.id)
     form = AddReviewForm(formdata=None, obj=reviews)
     session.add(reviews)
     session.commit()
-    response = client.post(f'/add_review/{new_post.id}', data=form.data, follow_redirects=True)
+    response = client.post(
+        f'/add_review/{new_post.id}', data=form.data, follow_redirects=True)
     assert response.status_code == 200
     assert b'Review Post' in response.data
     assert b'Comment the Post' in response.data
@@ -81,11 +81,9 @@ def test_register_user_page(client):
     assert b'Confirm' in response.data
     assert response.status_code == 200
     # test user registration
-    form = RegisterForm(username='testuser',email_address='testmail@test.com',password='testpass1',confirm='testpass1')
+    form = RegisterForm(username='testuser', email_address='testmail@test.com',
+                        password='testpass1', confirm='testpass1')
     response = client.post('/register', data=form.data, follow_redirects=False)
     assert response.status_code == 302
     expectedPath = '/market'
     assert urlparse(response.location).path == expectedPath
-
-
-

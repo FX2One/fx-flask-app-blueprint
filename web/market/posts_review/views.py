@@ -5,7 +5,8 @@ from market.models import User, Post, Review
 from market import db
 
 
-post_review_bp = Blueprint('posts_review', __name__, template_folder='templates')
+post_review_bp = Blueprint('posts_review', __name__,
+                           template_folder='templates')
 
 
 @post_review_bp.route('/add_review/<int:post_id>', methods=['GET', 'POST'])
@@ -22,7 +23,7 @@ def add_review(post_id):
                     post_id)
                 db.session.add(new_review)
                 db.session.commit()
-                flash('comment/review added successfully',category="success")
+                flash('comment/review added successfully', category="success")
             return redirect(url_for('posts_review.review', post_id=post_id))
     return render_template('add_review.html', form=form)
 
@@ -37,11 +38,10 @@ def review(post_id):
     return render_template('review_posted.html', posts=posts, users=users, single_post=single_post, reviews=all_reviews)
 
 
-
 # test_edit_review_form mocking against static user.id
 # .env LOGIN_DISABLED=TRUE
 # current_user.id exchanged to 1 for test purposes
-@post_review_bp.route('/review/edit/<int:post_id>', methods=['GET','POST'])
+@post_review_bp.route('/review/edit/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def edit_review(post_id):
     rev = Review.query.filter_by(id=post_id).first_or_404()
@@ -59,7 +59,7 @@ def edit_review(post_id):
     return render_template('edit_review.html', form=form)
 
 
-@post_review_bp.route('/delete_review/<int:post_id>', methods=['GET','POST'])
+@post_review_bp.route('/delete_review/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def delete_review(post_id):
     rev = Review.query.filter_by(id=post_id).first_or_404()

@@ -4,7 +4,7 @@ from wtforms.validators import InputRequired, Length
 
 
 class AddPostForm(FlaskForm):
-    title = StringField('Title', validators=[InputRequired(),Length(10, 60)])
+    title = StringField('Title', validators=[InputRequired(), Length(10, 60)])
 
     post = TextAreaField('Post Section', validators=[InputRequired(),
                                                      Length(10, 2000)])
@@ -13,7 +13,7 @@ class AddPostForm(FlaskForm):
 
 
 class EditPostForm(FlaskForm):
-    title = StringField('Title', validators=[InputRequired(),Length(10, 60)])
+    title = StringField('Title', validators=[InputRequired(), Length(10, 60)])
 
     post = TextAreaField('Post Section', validators=[InputRequired(),
                                                      Length(10, 2000)])

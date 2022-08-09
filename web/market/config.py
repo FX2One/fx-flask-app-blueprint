@@ -1,9 +1,9 @@
+"""psycopg2 needs import to establish connection with postgres"""
+import psycopg2
 import os
 from decouple import config
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-#needs import to establish connection with postgres
-import psycopg2
 
 class Config(object):
     # Set up the App SECRET_KEY
@@ -13,7 +13,8 @@ class Config(object):
     FLASK_APP = config('FLASK_APP')
 
     # This will create a file in <app> FOLDER
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
+        os.path.join(basedir, 'db.sqlite3')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Email configuration
@@ -34,13 +35,17 @@ class TestingConfig(Config):
     WTF_CSRF_ENABLED = False
     PRESERVE_CONTEXT_ON_EXCEPTION = False
 
-    SQLALCHEMY_DATABASE_URI = config('TEST_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'test_db.sqlite3')
+    SQLALCHEMY_DATABASE_URI = config(
+        'TEST_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'test_db.sqlite3')
     LOGIN_DISABLED = config('LOGIN_DISABLED')
+
 
 # Use on development
 class DebugConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = config('DEV_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'dev_db.sqlite3')
+    SQLALCHEMY_DATABASE_URI = config(
+        'DEV_DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'dev_db.sqlite3')
+
 
 # Use on production only
 class ProductionConfig(Config):
